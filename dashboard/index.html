@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LaunchScope — Token Launch Radar</title>
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<header class="top">
+  <div class="brand">
+    <span class="logo" aria-hidden="true">◉</span>
+    <div>
+      <h1>LaunchScope</h1>
+      <p class="tag">Token launch radar — pre-token protocols, ranked by implied value</p>
+    </div>
+  </div>
+  <div class="meta" id="meta">Loading the snapshot…</div>
+</header>
+
+<section class="method" id="method">
+  <h2>How the ranking works</h2>
+  <p>Every protocol below <strong>records no token</strong> in the DefiLlama snapshot and is not a wrapped, staked or bridged product of a token that already trades. Its <strong>implied value</strong> is its TVL times its category&rsquo;s market-cap-to-TVL multiple, taken from the protocols in that category whose tokens already trade (median, shrunk toward the global median, capped at 2.5&times;), adjusted for 7-day TVL growth (at most &plusmn;25%) and for how long it has run with no token (up to +20% at four years). The detail view shows the full working for each protocol. Nothing here predicts a launch; it prices one, if it happened, on the snapshot&rsquo;s own figures.</p>
+</section>
+
+<section class="controls" aria-label="Filter the board">
+  <label>Search <input id="q" type="search" placeholder="name or slug…" autocomplete="off"></label>
+  <label>Category
+    <select id="cat"><option value="">All categories</option></select>
+  </label>
+  <label>Chain
+    <select id="chain"><option value="">All chains</option></select>
+  </label>
+  <label>Sort
+    <select id="sort">
+      <option value="value">Implied value ↓</option>
+      <option value="tvl">TVL ↓</option>
+      <option value="growth">7-day growth ↓</option>
+      <option value="age">Longest untokenised ↓</option>
+    </select>
+  </label>
+  <label class="check"><input id="watch" type="checkbox"> Watchlist only</label>
+  <button id="reset" type="button">Reset</button>
+</section>
+
+<p class="stats" id="stats"></p>
+
+<main>
+  <section id="detail" class="detail" hidden></section>
+  <table id="board">
+    <thead>
+      <tr>
+        <th class="num">#</th>
+        <th>Protocol</th>
+        <th>Category</th>
+        <th>Chains</th>
+        <th class="num">TVL</th>
+        <th class="num">7d</th>
+        <th class="num">Implied value</th>
+        <th class="num">Multiple</th>
+      </tr>
+    </thead>
+    <tbody id="rows"></tbody>
+  </table>
+  <p class="empty" id="empty" hidden>No protocol matches this filter. Loosen the search or reset the filters.</p>
+</main>
+
+<footer>
+  <p>Snapshot: DefiLlama protocols at or above $5,000,000 TVL, fetched once and frozen. &ldquo;Records no token&rdquo; means the snapshot carries no token for the protocol; it is not proof the protocol has none. Farm steps are a starting plan, not financial advice: check the protocol&rsquo;s own pages before you deposit anything, and never risk money you need back soon.</p>
+  <p class="fine">LaunchScope — built for the make.fun token-radar-01 bounty. Values are the entry&rsquo;s own claim, computed from the snapshot.</p>
+</footer>
+
+<script src="../data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,183 @@
+/* LaunchScope — dark terminal radar. No network, no framework. */
+
+:root {
+  --bg: #0b0f0e;
+  --panel: #111816;
+  --panel-2: #16211d;
+  --line: #26332e;
+  --ink: #e8f0ea;
+  --dim: #9db3a5;
+  --faint: #6d8177;
+  --green: #3ddc84;
+  --cyan: #4cc9e6;
+  --amber: #f5b83d;
+  --red: #ff6b6b;
+  --mono: ui-monospace, "SF Mono", "Cascadia Mono", Menlo, Consolas, monospace;
+  --sans: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+/* header */
+.top {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px 14px;
+  border-bottom: 1px solid var(--line);
+}
+.brand { display: flex; gap: 12px; align-items: center; }
+.logo { color: var(--green); font-size: 34px; line-height: 1; }
+h1 { margin: 0; font-size: 28px; letter-spacing: 0.04em; }
+.tag { margin: 2px 0 0; color: var(--dim); font-size: 14px; }
+.meta {
+  font-family: var(--mono);
+  font-size: 12.5px;
+  color: var(--dim);
+  text-align: right;
+  line-height: 1.7;
+}
+.meta b { color: var(--green); font-weight: 600; }
+
+/* method strip */
+.method {
+  margin: 16px 24px 0;
+  padding: 14px 18px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--green);
+  border-radius: 6px;
+}
+.method h2 { margin: 0 0 6px; font-size: 13px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--green); }
+.method p { margin: 0; color: var(--dim); font-size: 14px; }
+.method strong { color: var(--ink); }
+
+/* controls */
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 14px;
+  align-items: flex-end;
+  margin: 16px 24px 0;
+  padding: 12px 16px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+}
+.controls label { display: flex; flex-direction: column; gap: 4px; font-size: 12px; color: var(--dim); text-transform: uppercase; letter-spacing: 0.08em; }
+.controls label.check { flex-direction: row; align-items: center; gap: 6px; padding-bottom: 8px; text-transform: none; letter-spacing: 0; font-size: 14px; color: var(--ink); }
+.controls input[type="search"], .controls select {
+  background: var(--bg);
+  color: var(--ink);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 7px 9px;
+  font-size: 14px;
+  font-family: var(--sans);
+  min-width: 150px;
+}
+.controls input[type="search"]:focus, .controls select:focus { outline: 2px solid var(--green); outline-offset: 0; border-color: var(--green); }
+.controls button {
+  background: var(--panel-2);
+  color: var(--ink);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 8px 14px;
+  font-size: 14px;
+  cursor: pointer;
+}
+.controls button:hover { border-color: var(--green); color: var(--green); }
+
+.stats { margin: 12px 24px 0; font-family: var(--mono); font-size: 13px; color: var(--dim); }
+.stats b { color: var(--ink); }
+
+/* board table */
+main { padding: 0 24px 8px; }
+table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 14px; }
+thead th {
+  text-align: left;
+  font-size: 11.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--faint);
+  border-bottom: 2px solid var(--line);
+  padding: 8px 10px;
+  position: sticky;
+  top: 0;
+  background: var(--bg);
+}
+tbody td { padding: 9px 10px; border-bottom: 1px solid var(--line); vertical-align: middle; }
+tbody tr { cursor: pointer; }
+tbody tr:hover { background: var(--panel); }
+tbody tr.selected { background: var(--panel-2); box-shadow: inset 3px 0 0 var(--green); }
+.num { text-align: right; font-family: var(--mono); font-size: 13.5px; white-space: nowrap; }
+.rank { font-family: var(--mono); color: var(--faint); }
+.name { font-weight: 650; }
+.name .slug { display: block; font-family: var(--mono); font-weight: 400; font-size: 12px; color: var(--faint); }
+.badge {
+  display: inline-block;
+  margin-left: 7px;
+  padding: 1px 6px;
+  border-radius: 3px;
+  background: #1d2f27;
+  color: var(--green);
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  vertical-align: 1px;
+}
+.cat { color: var(--dim); }
+.chains { color: var(--dim); font-size: 13px; }
+.up { color: var(--green); }
+.down { color: var(--red); }
+.flat { color: var(--dim); }
+.value { font-weight: 650; color: var(--ink); }
+.mult { color: var(--cyan); }
+.empty { color: var(--dim); padding: 24px 4px; }
+
+/* detail view */
+.detail {
+  margin-top: 16px;
+  padding: 18px 20px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+}
+.detail .crumbs { font-family: var(--mono); font-size: 12px; color: var(--faint); margin-bottom: 6px; }
+.detail .crumbs button { background: none; border: none; padding: 0; color: var(--cyan); cursor: pointer; font: inherit; text-decoration: underline; }
+.detail h2 { margin: 0 0 2px; font-size: 24px; }
+.detail h2 .slug { font-family: var(--mono); font-size: 13px; color: var(--faint); font-weight: 400; margin-left: 8px; }
+.detail .sub { margin: 0 0 14px; color: var(--dim); }
+.detail .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 16px; }
+.detail .cell { background: var(--bg); border: 1px solid var(--line); border-radius: 5px; padding: 10px 12px; }
+.detail .cell .k { font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--faint); }
+.detail .cell .v { font-family: var(--mono); font-size: 17px; margin-top: 3px; }
+.detail .cell .v small { font-size: 12px; color: var(--dim); }
+.detail h3 { margin: 18px 0 8px; font-size: 13px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--green); }
+.detail .working { font-family: var(--mono); font-size: 13px; line-height: 1.8; color: var(--dim); background: var(--bg); border: 1px solid var(--line); border-radius: 5px; padding: 12px 14px; margin: 0; white-space: pre-wrap; }
+.detail .working b { color: var(--ink); }
+.detail ol.steps { margin: 0; padding-left: 22px; }
+.detail ol.steps li { margin-bottom: 9px; padding-left: 4px; }
+.detail ol.steps li::marker { color: var(--green); font-weight: 700; }
+.detail .note { color: var(--faint); font-size: 13px; margin-top: 14px; }
+
+footer { padding: 8px 24px 28px; color: var(--faint); font-size: 13px; max-width: 1100px; }
+footer .fine { font-family: var(--mono); font-size: 12px; }
+
+@media (max-width: 900px) {
+  .detail .grid { grid-template-columns: repeat(2, 1fr); }
+  .meta { text-align: left; }
+  .chains { display: none; }
+  th:nth-child(4), td:nth-child(4) { display: none; }
+}
